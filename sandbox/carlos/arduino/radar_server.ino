@@ -21,7 +21,10 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
  
 void setup() {
   Serial.begin(9600);
+  
   myservo.attach(SERVO_PWM_PIN);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(TRIGGER_PIN, OUTPUT);
 }
  
 void loop() {
