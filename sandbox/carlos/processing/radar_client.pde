@@ -39,11 +39,10 @@ void setup() {
   historyX = new float[HISTORY_SIZE];
   historyY = new float[HISTORY_SIZE];
   points = new Point[POINTS_HISTORY_SIZE];
+
   myPort = new Serial(this, Serial.list()[0] , 9600);
-   
   myPort.bufferUntil('\n'); // Trigger a SerialEvent on new line
 }
- 
  
 void draw() {
   background(0);
