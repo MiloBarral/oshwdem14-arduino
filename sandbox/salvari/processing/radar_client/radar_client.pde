@@ -164,7 +164,7 @@ void shiftHistoryArray() {
 void shiftPointsArray() {
   for (int i = POINTS_HISTORY_SIZE -1; i > 0; i--) {
     if (points[i-1] != null) {
-      points[i] = point[i-1];
+      points[i] = points[i-1];
     }
   }
 }
