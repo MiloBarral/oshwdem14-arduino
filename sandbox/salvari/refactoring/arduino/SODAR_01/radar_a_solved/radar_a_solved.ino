@@ -2,7 +2,7 @@
   Programa diseñado para el taller de SODAR: Arduino + Processing
   OSHWDem-2014
 
-  radar_a_solved.ino
+  SODAR_01/radar_a_solved.ino
 
   Una solución para el primer ejercicio del curso.
 
@@ -37,7 +37,7 @@ void setup() {
 
 /*----------------------------------------------------------------------
   loop
-   Se ejecuta siempre, hasta el fin de los tiempos :-)
+   Se ejecuta siempre repetidamente, hasta el fin de los tiempos :-)
  ----------------------------------------------------------------------*/
 void loop() {
   delay(50);                          // Esperamos para que el servo acabe su último movimiento 
