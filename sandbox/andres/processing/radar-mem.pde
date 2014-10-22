@@ -3,8 +3,6 @@ import processing.serial.*;
 int MINANG=0;
 int MAXANG=180;
 int MAX_DISTANCE = 100;
-int TAMP=15;
-int DECP=5;
 int PASO = 1;
 int MAXX=200;
 int MAXY=200;
@@ -16,7 +14,11 @@ float x;
 float y;
 int time=0;
 int perp=0;
-
+int MEMORIA=5;
+int TAMP=15;
+int DECP=TAMP/MEMORIA;
+String puntos[MEMORIA];
+int i=0;
 
 void setup() {   
     background(255);
@@ -27,7 +29,15 @@ void draw() {
     pantalla();
     scanline();
     obtenerDatos(); // solo pruebas! los datos los proporciona serialEvent
-    punto(d,a,perp);
+    if (dp>=0) { 
+	puntos[i] = str(ap) + "," + str(dp);
+	i = (i + 1) % MEMORIA;
+    } 
+    for (int f=i-1; f>=0; f--) {
+	String[] v = split(puntos[f], ',');    
+	punto(Integer.parseInt(v[0]),Integer.parseInt(v[1]),DECP*(i-f-1));
+    }
+   
 }
 
 void pantalla() {
@@ -40,12 +50,10 @@ void pantalla() {
 }
 
 void punto(int dp, int ap, int pers) {
-    if (dp>=0) { 
         float b= TWO_PI - radians(ap);    
         float x = dp*cos(b);
         float y = dp*sin(b);
         ellipse(MAXX/2+x,MAXX/2+y,TAMP-pers,TAMP-pers);
-    }
 }
 
 void scanline() {
