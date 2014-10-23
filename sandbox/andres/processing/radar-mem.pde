@@ -5,7 +5,7 @@ int CFONDO= #B0C4DE; // #D3D3D3;
 int MINANG=0;
 int MAXANG=180;
 int MAX_DISTANCE = 100;
-int PASO = 1;
+int PASO = 10;
 int MAXX=200;
 int MAXY=200;
 int MAXD=75;
@@ -42,7 +42,7 @@ void pantalla() {
     stroke(0);
 }
 
-void punto(int dp, int ap, int tp) {
+void punto(int ap, int dp, int tp) {
         float b= TWO_PI - radians(ap);    
         float x = dp*cos(b);
         float y = dp*sin(b);
@@ -101,7 +101,7 @@ void pintarPuntos() {
     String[] p = split(puntos,";");
     for (int f=0; f<p.length(); f++) {
         String[] v = split(p[f], ",");  
-        punto(int(v[1]),float(v[0]),DECP*f);
+        punto(int(v[0]),int(v[1]),DECP*f);
     }
 }
 
