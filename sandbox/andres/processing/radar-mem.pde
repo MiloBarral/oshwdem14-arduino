@@ -7,17 +7,14 @@ int PASO = 1;
 int MAXX=200;
 int MAXY=200;
 int MAXD=75;
-int d=-1;
-int a=0;
-int s=1;
-float x;
-float y;
-int time=0;
-int perp=0;
 int MEMORIA=5;
 int TAMP=15;
 int DECP=TAMP/MEMORIA;
-String puntos[MEMORIA];
+float d=-1;
+int a=0;
+int s=1;
+int time=0;
+String puntos="";
 int i=0;
 
 void setup() {   
@@ -28,16 +25,10 @@ void setup() {
 void draw() { 
     pantalla();
     scanline();
-    obtenerDatos(); // solo pruebas! los datos los proporciona serialEvent
-    if (dp>=0) { 
-	puntos[i] = str(ap) + "," + str(dp);
-	i = (i + 1) % MEMORIA;
-    } 
-    for (int f=i-1; f>=0; f--) {
-	String[] v = split(puntos[f], ',');    
-	punto(Integer.parseInt(v[0]),Integer.parseInt(v[1]),DECP*(i-f-1));
-    }
-   
+    // solo pruebas! los datos los proporciona serialEvent
+//    if (hayDatos())  guardarPunto();
+    obtenerDatos();
+    pintarPuntos();
 }
 
 void pantalla() {
@@ -49,11 +40,11 @@ void pantalla() {
     ellipse(MAXX/2,MAXY/2,MAXD+MAXD,MAXD+MAXD);
 }
 
-void punto(int dp, int ap, int pers) {
+void punto(int dp, float ap, int tp) {
         float b= TWO_PI - radians(ap);    
         float x = dp*cos(b);
         float y = dp*sin(b);
-        ellipse(MAXX/2+x,MAXX/2+y,TAMP-pers,TAMP-pers);
+        ellipse(MAXX/2+x,MAXX/2+y,TAMP-tp,TAMP-tp);
 }
 
 void scanline() {
@@ -75,13 +66,46 @@ void serialEvent(Serial cPort) {
     }
 }
 
-void obtenerDatos() {
+bool hayDatos() {
+    bool r=false;
     if( millis() > time ) {
         a+=s*PASO;
         if (a>=MAXANG) {s=-1}
         if (a<=MINANG) {s=1}        
         d = random(MAXD);
         time = millis() + 200;
+        r = (d>=0);
     } 
+    return r;
+}
+
+void obtenerDatos() {
+    if (hayDatos()) guardarPunto();
+}
+
+void guardarPunto() {
+        if (puntos.length() > 0) 
+            puntos = str(a) + "," + str(d) + ";" + puntos; 
+        else 
+            puntos = str(a) + "," + str(d);
+        if (i >= MEMORIA) 
+            puntos = puntos.substring(0,lastindex(puntos,';'));           
+        else
+            i++;    
+}
+
+void pintarPuntos() {
+    String[] p = split(puntos,";");
+    for (int f=0; f<p.length(); f++) {
+        String[] v = split(p[f], ",");  
+        punto(int(v[1]),float(v[0]),DECP*f);
+    }
+}
+
+int lastindex(String s, char c) {
+    int i= s.length()-1;
+    String sc=str(c);
+    while ((str(s.charAt(i)) != sc) && (i>=0)) i--;
+    return i;
 }
 
