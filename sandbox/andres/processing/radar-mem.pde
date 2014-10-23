@@ -10,7 +10,7 @@ int MAXD=75;
 int MEMORIA=5;
 int TAMP=15;
 int DECP=TAMP/MEMORIA;
-float d=-1;
+int d=-1;
 int a=0;
 int s=1;
 int time=0;
@@ -25,9 +25,7 @@ void setup() {
 void draw() { 
     pantalla();
     scanline();
-    // solo pruebas! los datos los proporciona serialEvent
-//    if (hayDatos())  guardarPunto();
-    obtenerDatos();
+    obtenerDatos(); // solo pruebas! los datos los proporciona serialEvent
     pintarPuntos();
 }
 
@@ -40,7 +38,7 @@ void pantalla() {
     ellipse(MAXX/2,MAXY/2,MAXD+MAXD,MAXD+MAXD);
 }
 
-void punto(int dp, float ap, int tp) {
+void punto(int dp, int ap, int tp) {
         float b= TWO_PI - radians(ap);    
         float x = dp*cos(b);
         float y = dp*sin(b);
@@ -63,6 +61,7 @@ void serialEvent(Serial cPort) {
             a = Integer.parseInt(values[0]);      
             d = Integer.parseInt(values[1]) / MAX_DISTANCE * MAXD;
         } catch (Exception e) {}  
+	if (d>=0) guardarPunto();
     }
 }
 
@@ -72,7 +71,7 @@ bool hayDatos() {
         a+=s*PASO;
         if (a>=MAXANG) {s=-1}
         if (a<=MINANG) {s=1}        
-        d = random(MAXD);
+        d = int(random(MAXD));
         time = millis() + 200;
         r = (d>=0);
     } 
