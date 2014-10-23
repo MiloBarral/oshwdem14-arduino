@@ -1,5 +1,7 @@
 import processing.serial.*;
 
+int ANCHOCUADRICULA=15;
+int CFONDO= #B0C4DE; // #D3D3D3;
 int MINANG=0;
 int MAXANG=180;
 int MAX_DISTANCE = 100;
@@ -30,12 +32,14 @@ void draw() {
 }
 
 void pantalla() {
-    background(120);   
-    for(int i=0; i<MAXX; i+=10) {
+    background(CFONDO); 
+    ellipse(MAXX/2,MAXY/2,MAXD+MAXD,MAXD+MAXD);
+    stroke(CFONDO);  
+    for(int i=0; i<MAXX; i+=ANCHOCUADRICULA) {
         line(i,0,i,MAXY);
         line(0,i,MAXX,i);
     }
-    ellipse(MAXX/2,MAXY/2,MAXD+MAXD,MAXD+MAXD);
+    stroke(0);
 }
 
 void punto(int dp, int ap, int tp) {
