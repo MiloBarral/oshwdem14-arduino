@@ -18,10 +18,14 @@ int s=1;
 int time=0;
 String puntos="";
 int i=0;
+String comPortString;
+Serial myPort;
 
 void setup() {   
     background(255);
     size(200, 200); 
+    myPort = new Serial(this, Serial.list()[0] , 9600);
+    myPort.bufferUntil('\n'); // Trigger a SerialEvent on new line
 } 
 
 void draw() { 
