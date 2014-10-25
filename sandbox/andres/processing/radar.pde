@@ -17,10 +17,15 @@ float y;
 int time=0;
 int perp=0;
 
+String comPortString;
+Serial myPort;
+ 
 
 void setup() {   
     background(255);
     size(200, 200); 
+    myPort = new Serial(this, Serial.list()[0] , 9600);
+    myPort.bufferUntil('\n'); // Trigger a SerialEvent on new line
 } 
 
 void draw() { 
