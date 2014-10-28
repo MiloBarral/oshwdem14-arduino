@@ -14,8 +14,10 @@
 {
   \usetheme{Warsaw}
   \usecolortheme[RGB={52,170,205}]{structure}
-
+  \setbeamertemplate{navigation symbols}{}
 }
+\DeclareGraphicsExtensions{.pdf,.png,.jpg} %solo para PDFLaTeX
+\graphicspath{{figures/}{graphics/}{images/}}
 
 % Esto es para poder escribir acentos directamente:
 \usepackage[utf8]{inputenc}
@@ -23,6 +25,8 @@
 \usepackage[spanish]{babel}
 
 \usepackage{bookman}
+\usepackage{eurosym}
+
 % \usepackage{times}
 % \usepackage[T1]{fontenc}
 % Or whatever. Note that the encoding and the font should match. If T1
@@ -35,7 +39,7 @@
 {Un taller BricoLabs} % (optional)
 
 \author[ctemes, eukelade, milo, salvari] % (optional, use only with lots of authors)
-{Carlos Temes \and Andrés P da \and Milo \and salvari}
+{ctemes \and eukelade \and Milo \and salvari}
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
 
@@ -49,7 +53,7 @@ Asociación BricoLabs
 \date[Short Occasion] % (optional)
 {7 noviembre / OSHWDem - 2014}
 
-\subject{Talks}
+\subject{Taller Arduino Processing}
 % This is only inserted into the PDF information catalog. Can be left
 % out. 
 
@@ -146,7 +150,14 @@ FOTO DEL MONTAJE
 \end{frame}
 
 \begin{frame}{Arduino}
-  Foto Arduino
+
+  \begin{figure}
+    \centering
+%    \caption{IuCS}
+%    \label{fig:estruct}
+    \includegraphics [width=0.7\textwidth]{ArduinoUnoSmd.jpg}
+  \end{figure}
+
 
   Link a la página oficial
 
