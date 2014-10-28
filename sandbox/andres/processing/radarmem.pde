@@ -1,4 +1,4 @@
-// version processingjs (javascript)
+// version processing (java)
 
 import processing.serial.*;
 
@@ -7,7 +7,7 @@ int CFONDO= #B0C4DE; // #D3D3D3;
 int MINANG=0;
 int MAXANG=180;
 int MAX_DISTANCE = 100;
-int PASO = 1;
+int PASO = 10;
 int MAXX=200;
 int MAXY=200;
 int MAXD=75;
@@ -26,8 +26,10 @@ Serial myPort;
 void setup() {   
     background(255);
     size(200, 200); 
-    myPort = new Serial(this, Serial.list()[0] , 9600);
-    myPort.bufferUntil('\n'); // Trigger a SerialEvent on new line
+    if (Serial.list().length > 0) {     
+       myPort = new Serial(this, Serial.list()[0] , 9600);
+       myPort.bufferUntil('\n'); // Trigger a SerialEvent on new line
+    }
 } 
 
 void draw() { 
@@ -48,7 +50,7 @@ void pantalla() {
     stroke(0);
 }
 
-void punto(int dp, int ap, int tp) {
+void punto(int ap, int dp, int tp) {
         float b= TWO_PI - radians(ap);    
         float x = dp*cos(b);
         float y = dp*sin(b);
@@ -71,16 +73,16 @@ void serialEvent(Serial cPort) {
             a = Integer.parseInt(values[0]);      
             d = Integer.parseInt(values[1]) / MAX_DISTANCE * MAXD;
         } catch (Exception e) {}  
-	if (d>=0) guardarPunto();
+  if (d>=0) guardarPunto();
     }
 }
 
-bool hayDatos() {
-    bool r=false;
+boolean hayDatos() {
+    boolean r=false;
     if( millis() > time ) {
         a+=s*PASO;
-        if (a>=MAXANG) {s=-1}
-        if (a<=MINANG) {s=1}        
+        if (a>=MAXANG) {s=-1;}
+        if (a<=MINANG) {s=1;}        
         d = int(random(MAXD));
         time = millis() + 200;
         r = (d>=0);
@@ -97,23 +99,28 @@ void guardarPunto() {
             puntos = str(a) + "," + str(d) + ";" + puntos; 
         else 
             puntos = str(a) + "," + str(d);
-        if (i >= MEMORIA) 
+        if (i >= MEMORIA) {
+          println("aqui");
+            println(puntos);
+            println(puntos.substring(0,lastindex(puntos,';')));
             puntos = puntos.substring(0,lastindex(puntos,';'));           
+            println(puntos);
+        }
         else
             i++;    
 }
 
 void pintarPuntos() {
     String[] p = split(puntos,";");
-    for (int f=0; f<p.length(); f++) {
+    for (int f=0; f<p.length; f++) {
         String[] v = split(p[f], ",");  
-        punto(int(v[1]),float(v[0]),DECP*f);
+        punto(int(v[0]),int(v[1]),DECP*f);
     }
 }
 
 int lastindex(String s, char c) {
     int i= s.length()-1;
-    String sc=str(c);
-    while ((str(s.charAt(i)) != sc) && (i>=0)) i--;
+    while ((s.charAt(i) != c) && (i>=0)) i--;
     return i;
 }
+
