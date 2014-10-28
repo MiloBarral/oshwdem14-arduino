@@ -24,6 +24,10 @@
 % Esto es para que el LaTeX sepa que el texto está en español:
 \usepackage[spanish]{babel}
 
+% Links internos y externos
+\usepackage{hyperref}
+
+% Juegos de caracteres
 \usepackage{bookman}
 \usepackage{eurosym}
 
@@ -31,6 +35,22 @@
 % \usepackage[T1]{fontenc}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
+
+% Para listar código
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{listings}
+\lstset{language=C++,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  basicstyle={\tiny\ttfamily}
+}
+
 
 \title[Taller SODAR] % (optional, use only with long paper titles)
 {SODAR: Iniciación a Arduino + Processing}
@@ -97,34 +117,34 @@ Asociación BricoLabs
 \end{frame}
 
 
-% Since this a solution template for a generic talk, very little can
-% be said about how it should be structured. However, the talk length
-% of between 15min and 45min and the theme suggest that you stick to
-% the following rules:  
-
-% - Exactly two or three sections (other than the summary).
-% - At *most* three subsections per section.
-% - Talk about 30s to 2min per frame. So there should be between about
-%   15 and 30 frames, all told.
-
+%______________________________________________________________________
 \section{Presentación}
+
+%......................................................................
 \subsection{¿Quienes somos?}
 
+%----------------------------------------------------------------------
 \begin{frame}{BricoLabs y la OSHWDem}
+  \begin{columns}
+    \column{.6\textwidth}
+    \includegraphics [width=0.8\textwidth]{bricolabs_logo.png}
+    \column{.4\textwidth}
+    \includegraphics [width=0.8\textwidth]{OSHWIcolor.png}
+  \end{columns}
 
-LOGOS BL Y OSHWI Y DOS FOTOS   
 \end{frame}
 
-
+%----------------------------------------------------------------------
 \begin{frame}{Ponentes}
   \begin{itemize}
-  \item Carlos Temes
-  \item Eukelade
+  \item @ctemes
+  \item Eukelade @pepdiz
   \item Milo
-  \item Salvari
+  \item @salvari
   \end{itemize}
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Asistentes}
   \begin{itemize}
   \item ¿Quién conoce el Arduino?
@@ -135,50 +155,87 @@ LOGOS BL Y OSHWI Y DOS FOTOS
   \end{itemize}
 \end{frame}
 
+%......................................................................
 \subsection{Requisitos}
 
+%----------------------------------------------------------------------
 \begin{frame}{Revisar la instalación}
-  Cargar el blink de ejemplo en Arduino
+  \includegraphics [width=0.8\textwidth]{open_blink.png}
 \end{frame}
 
+%______________________________________________________________________
 \section{Arduino}
+
+%......................................................................
 \subsection{Intro}
+
+%----------------------------------------------------------------------
 \begin{frame}{SODAR}
 
 FOTO DEL MONTAJE
   
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Arduino}
 
   \begin{figure}
     \centering
-%    \caption{IuCS}
-%    \label{fig:estruct}
     \includegraphics [width=0.7\textwidth]{ArduinoUnoSmd.jpg}
   \end{figure}
-
-
-  Link a la página oficial
-
-  Link a la foto de familia
+  \begin{columns}
+    \column{.5\textwidth}
+    \href{http://www.arduino.cc/}{Página Principal}
+    \column{.5\textwidth}
+    \href{http://blog.arduino.cc/wp-content/uploads/2013/11/ArduinoEvolution_make.jpg}{Foto Familia}
+  \end{columns}
 \end{frame}
 
+%......................................................................
 \subsection{Montaje}
+
+%----------------------------------------------------------------------
 \begin{frame}{Montaje I}
   Foto del soporte
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Montaje II}
   Esquema Fritzing
 \end{frame}
 
+%......................................................................
 \subsection{Movimiento}
 
-\begin{frame}{Estructura de un programa Arduino}
-  Radar\_a.o.ino
+%----------------------------------------------------------------------
+\begin{frame}[fragile]{Estructura de un programa Arduino}
+\begin{lstlisting}
+#include <Servo.h>     
+
+#define SERVO_PWM_PIN 9
+
+Servo myservo;         
+
+/*----------------------------------------------------------------------
+  setup
+   Se ejecuta una sola vez al principio del programa. O cuando el arduino
+   se resetea.
+ ----------------------------------------------------------------------*/
+void setup() {
+  
+}
+
+/*----------------------------------------------------------------------
+  loop
+   Se ejecuta siempre, hasta el fin de los tiempos :-)
+ ----------------------------------------------------------------------*/
+void loop() {
+
+}
+\end{lstlisting}
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Servo}
   Foto del servo
 
@@ -186,22 +243,27 @@ FOTO DEL MONTAJE
   
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Barridos}
   Foto de un radar (de verdad)
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Una solución}
   Nuestra solución
 \end{frame}
 
+%......................................................................
 \subsection{Sensor}
 
+%----------------------------------------------------------------------
 \begin{frame}{Sensor ultrasonidos}
   Foto sensor
 
   Fundido a Caracteristicas técnicas
 \end{frame}
 
+%----------------------------------------------------------------------
 \begin{frame}{Protocolo}
   Diagrama de señales
 \end{frame}
