@@ -22,7 +22,7 @@ void setup() {
   pinMode(TRIGGER_PIN, OUTPUT);  // pin trigger es salida
   pinMode(ECHO_PIN   , INPUT );  // pin echo es entrada
   
-  Serial.begin(9600);        // Abrimos el puerto serie
+  Serial.begin(9600);            // Abrimos el puerto serie
 }
 
 
@@ -43,7 +43,7 @@ float medida(){
  
   
   for (int i=0; i<5; i++){
-                                           // Preparamos el sensor
+                                          // Preparamos el sensor
     digitalWrite(TRIGGER_PIN, LOW);       //   Nivel bajo para estabilizar
     delayMicroseconds(5);                 //   garantizamos 5 microsegundos
   
@@ -52,11 +52,11 @@ float medida(){
     digitalWrite(TRIGGER_PIN, LOW);
   
                                         // Leemos el echo, viene codificado en 
-    time = pulseIn(ECHO_PIN, HIGH);       // el ancho del pulso
+    time = pulseIn(ECHO_PIN, HIGH);     // el ancho del pulso
   
     
   
-    result += (time / 29 / 2);                  // Calculamos la distancia y la imprimimos
+    result += (time / 29 / 2);          // Acumulamos la distancia
   
 
   
@@ -64,10 +64,11 @@ float medida(){
     
   }
 
-  result = result / 5;
+  result = result / 5;                 // Calculamos la media
   
-  if (result > 400) {
-    return 400;
+  if (result > 400) {                  // Distancia mayor que alcance
+    //return 400;
+    return 0;
   } else {
     return result;
   }
