@@ -1,0 +1,35 @@
+pcbx=1.60;	// grosor pcb
+pcby=45.30;	// largo pcb
+pcbz=20.50;	// alto pcb
+
+distanciasensores=26;
+grosorbase=4;
+
+module cilindro(){
+rotate([0,90,0])	
+cylinder(d=(20.50-4), h=12, center=true);
+}
+
+cube([pcbx,pcby,pcbz], center=true);	// pcb block 
+
+translate([0,distanciasensores/2,0])
+cilindro();
+
+translate([0,-distanciasensores/2,0])
+cilindro();
+
+translate([pcbx/2+2,0,0])
+%cube ([4,pcby+2,pcbz+2], center=true); //frontal
+
+
+difference(){
+translate([0,0,-pcbz/2-grosorbase/2])
+cube ([10,pcby+2,grosorbase],center=true); //base
+
+translate([pcbx/2,0,-pcbz/2-grosorbase/2])
+cube([0.5,pcby/2,grosorbase],center=true);
+// ranura
+}
+//cristal
+translate([pcbx/2+6/2,0,pcbz/2-2])
+cube([6,11,6],center=true);
